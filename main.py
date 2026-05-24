@@ -1,21 +1,21 @@
-import cv2                             # OpenCV 라이브러리 임포트 (컴퓨터 비전 및 실시간 영상 처리용)
-from gpiozero import Buzzer            # gpiozero 라이브러리에서 Buzzer 모듈 임포트 (하드웨어 부저 제어용)
-import time                            # 시간 지연 및 제어를 위한 time 모듈 임포트
+import cv2                             # OpenCV 라이브러리 (컴퓨터 비전 및 실시간 영상 처리용)
+from gpiozero import Buzzer            # gpiozero 라이브러리에서 Buzzer 모듈 (하드웨어 부저 제어용)
+import time                            # 시간 지연 및 제어를 위한 time 모듈
 
 buzzerPin = Buzzer(16)                 # 라즈베리파이 GPIO 16번 핀에 연결된 부저 객체 생성
 
 def main():                            # 프로그램의 메인 로직을 담은 함수 정의
     camera = cv2.VideoCapture(-1)      # 기본 카메라(-1 또는 0) 객체 생성 및 장치 연결
-    camera.set(3,640)                  # 카메라 영상 프레임의 너비(Width)를 640 픽셀로 설정
-    camera.set(4,480)                  # 카메라 영상 프레임의 높이(Height)를 480 픽셀로 설정
+    camera.set(3,640)                  # 카메라 영상 프레임의 너비를 640 픽셀로 설정
+    camera.set(4,480)                  # 카메라 영상 프레임의 높이를 480 픽셀로 설정
     
     # Haar Cascade 얼굴 탐지용 사전 학습된 XML 모델 파일의 절대 경로 설정
     face_xml = cv2.data.haarcascades + 'haarcascade_frontalface_default.xml' 
     # Haar Cascade 눈 탐지용 사전 학습된 XML 모델 파일의 절대 경로 설정
     eye_xml = cv2.data.haarcascades + 'haarcascade_eye.xml' 
     
-    face_cascade = cv2.CascadeClassifier(face_xml)             # 얼굴 탐지 분류기(CascadeClassifier) 객체 생성
-    eye_cascade = cv2.CascadeClassifier(eye_xml)               # 눈 탐지 분류기(CascadeClassifier) 객체 생성
+    face_cascade = cv2.CascadeClassifier(face_xml)             # 얼굴 탐지 분류기 객체 생성
+    eye_cascade = cv2.CascadeClassifier(eye_xml)               # 눈 탐지 분류기 객체 생성
     
     while( camera.isOpened() ):                                # 카메라 장치가 정상적으로 열려있는 동안 무한 반복
         _, image = camera.read()                               # 카메라로부터 프레임 한 장을 캡처하여 image 변수에 저장
